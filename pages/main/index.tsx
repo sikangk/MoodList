@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import APIURL from '../api/APIURL';
+import ApiCall from '../api/ApiCall';
 
 const Container = styled.div`
     width:100%;
@@ -39,8 +41,15 @@ const moodArr = [
     { id: 5, mood: '우울' },
     { id: 6, mood: '신남' },
     { id: 7, mood: '질투' },
-    { id: 7, mood: '창피' }
+    { id: 8, mood: '창피' }
 ]
+
+const getList = () => {
+
+    ApiCall(APIURL.search + `?part=snippet&q=즐거운음악&key=AIzaSyCZtze9Mpjl7KnNA7RiXJYmg5LJVBu5nqo`)
+}
+
+// console.log(APIURL.search + `?part=snippet&q=즐거운음악&key=AIzaSyCZtze9Mpjl7KnNA7RiXJYmg5LJVBu5nqo`)
 
 
 function Main() {
@@ -49,7 +58,7 @@ function Main() {
             <MoodWrap>
                 {moodArr.map((item, index) => {
                     return (
-                        <MoodBox key={item.id}>
+                        <MoodBox key={item.id} onClick={getList}>
                             {item.mood}
                         </MoodBox>
                     )
