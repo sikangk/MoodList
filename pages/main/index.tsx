@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import APIURL from '../api/APIURL';
 import ApiCall from '../api/ApiCall';
+import Youtube from 'react-youtube';
 
 const Container = styled.div`
     width:100%;
@@ -46,7 +47,7 @@ const moodArr = [
 
 const getList = () => {
 
-    ApiCall(APIURL.search + `?part=snippet&q=즐거운음악&key=AIzaSyCZtze9Mpjl7KnNA7RiXJYmg5LJVBu5nqo`)
+    ApiCall(APIURL.search + `?part=snippet&q=즐거운음악&order=viewCount&key=AIzaSyCZtze9Mpjl7KnNA7RiXJYmg5LJVBu5nqo`)
 }
 
 // console.log(APIURL.search + `?part=snippet&q=즐거운음악&key=AIzaSyCZtze9Mpjl7KnNA7RiXJYmg5LJVBu5nqo`)
@@ -54,17 +55,25 @@ const getList = () => {
 
 function Main() {
     return (
-        <Container>
-            <MoodWrap>
-                {moodArr.map((item, index) => {
-                    return (
-                        <MoodBox key={item.id} onClick={getList}>
-                            {item.mood}
-                        </MoodBox>
-                    )
-                })}
-            </MoodWrap>
-        </Container>
+        <>
+            {/* <div style={{ position: 'fixed', zIndex: -99, width: '100%', height: '100vh' }}>
+
+          
+                <Youtube videoId='HLxo8Gr8qRA' opts={{ height: '100vh', width: '100%', playerVars: { autoplay: 1, } }} />
+            </div> */}
+            <Container>
+
+                <MoodWrap>
+                    {moodArr.map((item, index) => {
+                        return (
+                            <MoodBox key={item.id} onClick={getList}>
+                                {item.mood}
+                            </MoodBox>
+                        )
+                    })}
+                </MoodWrap>
+            </Container>
+        </>
     )
 }
 
