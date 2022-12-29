@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useMemo} from 'react';
 import styled from 'styled-components';
 import APIURL from '../api/APIURL';
 import ApiCall from '../api/ApiCall';
@@ -22,75 +22,80 @@ const MoodWrap = styled.div`
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+  cursor: pointer;
 `;
 
-const MoodBox = styled.div`
+const MoodBox = styled.div<{color?:string,playing?:string | null}>`
 
-  width: 20%;
+  width: 30%;
   height: 25vh;
-  border: 1px solid black;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: white;
+  background-color: ${props => props.color};
+
+  &:hover {
+    opacity: 1;
+  }
 `;
 
 
-const moodArr = [
-    {id: 1, mood: '행복', value: '행복할때 듣는 노래'},
-    {id: 2, mood: '슬픔', value: '슬플때 듣는 노래'},
-    {id: 3, mood: '짜증', value: '짜증날때 듣는 노래'},
-    {id: 4, mood: '분노', value: '화날때 듣는 노래'},
-    {id: 5, mood: '우울', value: '우울할때 듣는 노래'},
-    {id: 6, mood: '신남', value: '신나는 음악'},
-    {id: 7, mood: '질투', value: '질투날때 듣는 노래'},
-    {id: 8, mood: '창피', value: '창피할때 듣는 노래'}
-]
-
-
 function Main() {
-    const [playList, setPlayList] = useState([]);
     const [globalHeight, setGlobalHeight] = useState(0);
     const [playVideo, setPlayVideo] = useState(null);
+
+    const moodArr = useMemo(() => {
+
+        return [{id: 1, mood: '행복', value: '행복한 음악', img: require('../../styles/image/행복.png'),color:'#F4E3DC'},
+            {id: 2, mood: '슬픔', value: '슬픈 음악', img: require('../../styles/image/슬픔.png'),color:'#0067A3'},
+            {id: 3, mood: '고독', value: '고독한 음악', img: require('../../styles/image/고독함.png'),color:'#808080'},
+            {id: 4, mood: '쾌활', value: '쾌활한 음악', img: require('../../styles/image/쾌활함.png'),color:'#FFFF00'},
+            {id: 5, mood: '사랑', value: '사랑 음악', img: require('../../styles/image/사랑.png'),color:'#A83F39'},
+            {id: 6, mood: '힘듦', value: '힘들때 듣는 음악', img: require('../../styles/image/힘듦.png'),color:'#8B00FF'},]
+    }, [])
+
+    useEffect(() => {
+        calcGlbalHeight();
+    }, [])
 
 
     useEffect(() => {
 
+        window.addEventListener('resize', calcGlbalHeight);
+
+        return () => window.removeEventListener('resize', calcGlbalHeight);
+
+    }, [playVideo])
+
+    const calcGlbalHeight = () => {
         setTimeout(() => {
-            setGlobalHeight(window.innerHeight);
+            setGlobalHeight(`${window.innerHeight}px`);
+            console.log(window.innerHeight, '?????')
 
         }, 1000)
-
-
-    }, [])
+    }
 
     const getList = async (value: string) => {
 
 
         try {
-            const response = await ApiCall(APIURL.search + `?part=snippet&q=${value}&order=viewCount&key=AIzaSyCZtze9Mpjl7KnNA7RiXJYmg5LJVBu5nqo`);
+            const response = await ApiCall(APIURL.search + `?part=snippet&q=${value}&maxResults=10&order=viewCount&key=AIzaSyCZtze9Mpjl7KnNA7RiXJYmg5LJVBu5nqo`);
 
             const {data} = response;
 
             const {items} = data;
 
-            const random = Math.floor(Math.random() * 4);
+            const random = Math.floor(Math.random() * 9);
 
-            console.log(random, 'ramdon');
 
-            console.log(items[random].id.videoId, 'data');
-            setPlayList(data);
             setPlayVideo(items[random]?.id?.videoId);
-
-            console.log(response, 'response');
-
-            console.log(playList, 'playList');
 
         } catch (e) {
             console.error(e);
         }
     }
 
+    console.log(globalHeight, 'globalHeight');
 
     return (
         <div style={{
@@ -102,19 +107,24 @@ function Main() {
             alignItems: 'center'
         }}>
             {playVideo && <div
-                style={{position: 'absolute', zIndex: -99, width: '100%', height: '100vh', border: '1px solid black'}}>
+                style={{position: 'absolute', zIndex: -99, width: '100%', height: '100vh'}}>
 
 
                 <Youtube videoId={playVideo}
-                         style={{height: globalHeight}} opts={{width: '100%', playerVars: {autoplay: 1,}}}/>
+                         opts={{
+                             width: '100%',
+                             height: globalHeight,
+                             playerVars: {autoplay: 1, rel: 0, modestbranding: 1, controls: 0}
+                         }}/>
             </div>}
             <Container>
 
                 <MoodWrap>
                     {moodArr.map((item, index) => {
+                        console.log(item.img,'ite,OIm,ge');
                         return (
-                            <MoodBox key={item.id} onClick={() => getList(item.value)}>
-                                {item.mood}
+                            <MoodBox key={item.id} onClick={() => getList(item.value)} color={item?.color}>
+                                <img style={{width:50,height:50}}  src={item.img.default.src}/>
                             </MoodBox>
                         )
                     })}
