@@ -187,7 +187,7 @@ const MoodBox = styled.div<{ color?: string , playing?:boolean }>`
     width:100%;
     height:25vh;
     background-color: rgba(0,0,0,0.5);
-    border:1px solid black;
+ 
   }
   
   &:hover{

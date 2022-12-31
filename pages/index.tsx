@@ -4,7 +4,16 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import Main from './main'
 
+
+const isProduction = process.env.REACT_APP_IS_PRODUCTION === 'y'
 const Home: NextPage = () => {
+
+    if (isProduction) {
+        console.log = () => { };
+        console.error = () => { };
+        console.debug = () => { };
+    }
+
   return (
     <div className={styles.container}>
       <Head>
