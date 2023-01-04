@@ -16,5 +16,5 @@ NextJS, StyledComponents, Youtube Api
 </p>
 
 <a href='https://sikangk.github.io/MoodList/' target="_blank">
- 
+ <span>바로가기</span>
 </a>
