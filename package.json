@@ -1,16 +1,20 @@
 {
+  "homepage": "https://sikangk.github.io/MoodList",
   "name": "mood-list",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && next export",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "predeploy": "npm run build",
+    "deploy": "next build && next export && touch out/.nojekyll && git add -f out/ && git commit -m 'deploy to gh-pages' && git subtree push --prefix out origin gh-pages"
   },
   "dependencies": {
     "@types/styled-components": "^5.1.26",
     "axios": "^0.27.2",
+    "gh-pages": "^4.0.0",
     "next": "12.3.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",

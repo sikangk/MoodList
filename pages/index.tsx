@@ -3,9 +3,10 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import Main from './main'
+import {prefix} from "../config/config";
 
 
-const isProduction = process.env.REACT_APP_IS_PRODUCTION === 'y'
+const isProduction = process.env.NODE_ENV === "production"
 const Home: NextPage = () => {
 
     if (isProduction) {
@@ -19,7 +20,7 @@ const Home: NextPage = () => {
       <Head>
         <title>Mood List</title>
         <meta name="당신의 감정에 따라" content="당신의 감정에 맞는 음악을 감상해보세요." />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href={`${prefix}/favicon.ico`} />
       </Head>
 
         <Main/>

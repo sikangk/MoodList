@@ -3,7 +3,12 @@ import styled, {keyframes} from 'styled-components';
 import APIURL from '../api/APIURL';
 import ApiCall from '../api/ApiCall';
 import Youtube from 'react-youtube';
+import {prefix} from '../../config/config';
 
+// const prefix =
+//     process.env.NODE_ENV === "production"
+//         ? "https://sikangk.github.io/MoodList"
+//         : "";
 
 function Main() {
     const [globalHeight, setGlobalHeight] = useState('');
@@ -11,14 +16,30 @@ function Main() {
     const [opacityValue, setOpacityValue] = useState(false);
     const [playingId,setPlayingId] = useState<null | number>(null);
 
+    // [{id: 1, mood: '행복', value: '행복한 음악', img: `${prefix}/styles/image/행복.png`, color: '#F4E3DC'},
+    //     {id: 2, mood: '슬픔', value: '슬픈 음악', img: `${prefix}/styles/image/슬픔.png`, color: '#0067A3'},
+    //     {id: 3, mood: '고독', value: '고독한 음악', img: `${prefix}/styles/image/고독함.png`, color: '#808080'},
+    //     {id: 4, mood: '쾌활', value: '쾌활한 음악', img: `${prefix}/styles/image/쾌활함.png`, color: '#FFFF00'},
+    //     {id: 5, mood: '사랑', value: '사랑 음악', img: `${prefix}/styles/image/사랑.png`, color: '#A83F39'},
+    //     {id: 6, mood: '힘듦', value: '힘들때 듣는 음악', img: `${prefix}/styles/image/힘듦.png`, color: '#8B00FF'},]
+
+
+
+    // [{id: 1, mood: '행복', value: '행복한 음악', img: require('../../styles/image/행복.png'), color: '#F4E3DC'},
+    //     {id: 2, mood: '슬픔', value: '슬픈 음악', img: require('../../styles/image/슬픔.png'), color: '#0067A3'},
+    //     {id: 3, mood: '고독', value: '고독한 음악', img: require('../../styles/image/고독함.png'), color: '#808080'},
+    //     {id: 4, mood: '쾌활', value: '쾌활한 음악', img: require('../../styles/image/쾌활함.png'), color: '#FFFF00'},
+    //     {id: 5, mood: '사랑', value: '사랑 음악', img: require('../../styles/image/사랑.png'), color: '#A83F39'},
+    //     {id: 6, mood: '힘듦', value: '힘들때 듣는 음악', img:require('../../styles/image/힘듦.png'), color: '#8B00FF'},]
+
     const moodArr = useMemo(() => {
 
-        return [{id: 1, mood: '행복', value: '행복한 음악', img: require('../../styles/image/행복.png'), color: '#F4E3DC'},
-            {id: 2, mood: '슬픔', value: '슬픈 음악', img: require('../../styles/image/슬픔.png'), color: '#0067A3'},
-            {id: 3, mood: '고독', value: '고독한 음악', img: require('../../styles/image/고독함.png'), color: '#808080'},
-            {id: 4, mood: '쾌활', value: '쾌활한 음악', img: require('../../styles/image/쾌활함.png'), color: '#FFFF00'},
-            {id: 5, mood: '사랑', value: '사랑 음악', img: require('../../styles/image/사랑.png'), color: '#A83F39'},
-            {id: 6, mood: '힘듦', value: '힘들때 듣는 음악', img: require('../../styles/image/힘듦.png'), color: '#8B00FF'},]
+        return     [{id: 1, mood: '행복', value: '행복한 음악', img: `${prefix}/1.png`, color: '#F4E3DC'},
+            {id: 2, mood: '슬픔', value: '슬픈 음악', img: `${prefix}/2.png`, color: '#0067A3'},
+            {id: 3, mood: '고독', value: '고독한 음악', img: `${prefix}/3.png`, color: '#808080'},
+            {id: 4, mood: '쾌활', value: '쾌활한 음악', img: `${prefix}/4.png`, color: '#FFFF00'},
+            {id: 5, mood: '사랑', value: '사랑 음악', img: `${prefix}/5.png`, color: '#A83F39'},
+            {id: 6, mood: '힘듦', value: '힘들때 듣는 음악', img: `${prefix}/6.png`, color: '#8B00FF'},]
     }, [])
 
     useEffect(() => {
@@ -89,7 +110,7 @@ function Main() {
                                      color={item?.color}
                                      playing={playingId === item.id ? true : false}
                             >
-                                <MoodImg src={item.img.default.src}/>
+                                <MoodImg src={item?.img}/>
                                 <div/>
                             </MoodBox>
                         )
