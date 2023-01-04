@@ -14,3 +14,7 @@ NextJS, StyledComponents, Youtube Api
 <p align="center">
   <img src="https://user-images.githubusercontent.com/67676297/210133727-95f728fc-9166-4f27-9573-56168f797b91.gif">
 </p>
+
+<a href='https://sikangk.github.io/MoodList/' target="_blank">
+ <span>바로가기</span>
+</a>
