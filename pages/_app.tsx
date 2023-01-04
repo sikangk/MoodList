@@ -1,23 +1,27 @@
-import React,{useEffect} from "react";
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import React, {useEffect} from "react";
+import type {AppProps} from 'next/app'
+import {GlobalsStyle} from "../styles/globals.style";
 
 const isProduction = process.env.NODE_ENV === "production"
 
 
-function MyApp({ Component, pageProps }: AppProps) {
-  useEffect(() => {
+function MyApp({Component, pageProps}: AppProps) {
+    useEffect(() => {
 
-    if (isProduction) {
-      document.oncontextmenu = function () {
-        return false;
-      }
-    }
+        if (isProduction) {
+            document.oncontextmenu = function () {
+                return false;
+            }
+        }
 
-  },[])
+    }, [])
 
 
-  return <Component {...pageProps} />
+    return (
+        <div>
+            <GlobalsStyle/>
+            <Component {...pageProps} />
+        </div>)
 }
 
 export default MyApp

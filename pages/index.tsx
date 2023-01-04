@@ -19,7 +19,7 @@ const Home: NextPage = () => {
     <div className={styles.container}>
       <Head>
         <title>Mood List</title>
-        <meta name="당신의 감정에 따라" content="당신의 감정에 맞는 음악을 감상해보세요." />
+        <meta name="description" content="당신의 감정에 맞는 음악을 감상해보세요." />
         <link rel="icon" href={`${prefix}/favicon.ico`} />
       </Head>
 
